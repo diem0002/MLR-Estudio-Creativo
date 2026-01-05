@@ -179,3 +179,55 @@ export async function updateProduct(id: number, prevState: any, formData: FormDa
     revalidatePath('/admin');
     redirect('/admin');
 }
+export async function updateCredentials(prevState: any, formData: FormData) {
+    const bcrypt = require('bcryptjs');
+    
+    const currentPassword = formData.get('currentPassword') as string;
+    const newEmail = formData.get('newEmail') as string;
+    const newPassword = formData.get('newPassword') as string;
+    const confirmPassword = formData.get('confirmPassword') as string;
+
+    if (!currentPassword || !newEmail || !newPassword || !confirmPassword) {
+        return { message: 'Todos los campos son obligatorios' };
+    }
+
+    if (newPassword !== confirmPassword) {
+        return { message: 'Las contraseñas no coinciden' };
+    }
+
+    if (newPassword.length < 6) {
+        return { message: 'La contraseña debe tener al menos 6 caracteres' };
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(newEmail)) {
+        return { message: 'Email inválido' };
+    }
+
+    try {
+        const result = await sqlSELECT * FROM users WHERE email = 'admin@example.com' OR id = 1 LIMIT 1;
+        const user = result.rows[0];
+
+        if (!user) {
+            return { message: 'Usuario no encontrado' };
+        }
+
+        const isValid = await bcrypt.compare(currentPassword, user.password);
+        if (!isValid) {
+            return { message: 'Contraseña actual incorrecta' };
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        await sql
+            UPDATE users 
+            SET email = , password = 
+            WHERE id = 
+        ;
+
+        return { message: ' Credenciales actualizadas con éxito. Por favor, inicia sesión nuevamente.' };
+    } catch (error: any) {
+        console.error('Error updating credentials:', error);
+        return { message: 'Error al actualizar credenciales: ' + error.message };
+    }
+}

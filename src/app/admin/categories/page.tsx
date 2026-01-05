@@ -9,30 +9,44 @@ export default async function CategoriesPage() {
 
     return (
         <div className={styles.container}>
-            <header className={styles.header}>
-                <h1 className={styles.pageTitle}>Categorías</h1>
-            </header>
+            <h1 className={styles.pageTitle}>Categorías</h1>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
-                {/* Create Form */}
+            <div style={{ marginBottom: '3rem' }}>
+                <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--rose-dark)' }}>Nueva Categoría</h2>
                 <CreateCategoryForm />
+            </div>
 
-                {/* List */}
-                <div className={styles.card}>
-                    <h3>Existentes</h3>
-                    <ul style={{ listStyle: 'none', padding: 0 }}>
-                        {categories.map((cat) => (
-                            <li key={cat.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0', borderBottom: '1px solid #eee' }}>
-                                <span>{cat.name}</span>
-                                <form action={deleteCategory.bind(null, cat.id)}>
-                                    <button type="submit" style={{ color: 'red', border: 'none', background: 'none', cursor: 'pointer' }}>
-                                        Eliminar
-                                    </button>
-                                </form>
-                            </li>
-                        ))}
-                        {categories.length === 0 && <li style={{ padding: '0.5rem 0' }}>No hay categorías.</li>}
-                    </ul>
+            <div>
+                <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: 'var(--rose-dark)' }}>Categorías Existentes</h2>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    {categories.map((category) => (
+                        <div key={category.id} style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            padding: '1rem 1.5rem',
+                            background: 'white',
+                            borderRadius: '0.5rem',
+                            border: '1px solid var(--border)',
+                            boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+                        }}>
+                            <span style={{ fontSize: '1.1rem', fontWeight: 500 }}>{category.name}</span>
+                            <form action={deleteCategory.bind(null, category.id)}>
+                                <button type="submit" style={{
+                                    background: '#d32f2f',
+                                    color: 'white',
+                                    border: 'none',
+                                    padding: '0.5rem 1rem',
+                                    borderRadius: '0.375rem',
+                                    cursor: 'pointer',
+                                    fontWeight: 600,
+                                    fontSize: '0.9rem'
+                                }}>
+                                    Eliminar
+                                </button>
+                            </form>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

@@ -5,23 +5,23 @@ import { createCategory } from '@/lib/actions';
 import styles from '../admin.module.css';
 
 export function CreateCategoryForm() {
-    const [state, dispatch] = useActionState(createCategory, undefined);
+    const [state, formAction] = useActionState(createCategory, undefined);
 
     return (
-        <div className={styles.card}>
-            <h3>Nueva Categoría</h3>
-            <form action={dispatch} className={styles.form}>
-                {state?.message && (
-                    <p style={{ color: 'red', fontSize: '0.9rem' }}>{state.message}</p>
-                )}
-                <div className={styles.inputGroup}>
-                    <label className={styles.label}>Nombre</label>
-                    <input name="name" type="text" className={styles.input} required placeholder="Ej. Agendas" />
-                </div>
-                <button type="submit" className={styles.createButton}>
-                    Crear
-                </button>
-            </form>
-        </div>
+        <form action={formAction} className={styles.form} style={{ maxWidth: '500px' }}>
+            <div className={styles.inputGroup}>
+                <label className={styles.label}>Nombre de la Categoría</label>
+                <input
+                    name="name"
+                    className={styles.input}
+                    required
+                    placeholder="Ej: Agendas, Stickers, etc."
+                />
+            </div>
+            {state?.message && <p style={{ color: '#d32f2f', fontSize: '0.9rem' }}>{state.message}</p>}
+            <button type="submit" className={styles.createButton} style={{ marginTop: '0.5rem' }}>
+                Crear Categoría
+            </button>
+        </form>
     );
 }

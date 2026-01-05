@@ -23,10 +23,15 @@ export default async function AdminLayout({
                         <Link href="/admin" className={styles.navLink}>
                             Productos
                         </Link>
+                        <Link href="/admin/create" className={styles.navLink}>
+                            Crear Producto
+                        </Link>
                         <Link href="/admin/categories" className={styles.navLink}>
                             Categorías
                         </Link>
-                        {/* Future: <Link href="/admin/settings" className={styles.navLink}>Configuración</Link> */}
+                        <Link href="/admin/settings" className={styles.navLink}>
+                            Configuración
+                        </Link>
                     </nav>
                 </div>
 
