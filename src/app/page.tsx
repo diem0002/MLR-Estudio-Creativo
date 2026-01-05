@@ -18,11 +18,11 @@ export default async function Home() {
 
           <h1 className={styles.title}>
             <span className={styles.titleLine}>MLR</span>
-            <span className={styles.titleLine}>Estudio</span>
-            <span className={styles.titleLine}>Creativo</span>
+            <span className={styles.titleLine}>Estudio Creativo</span>
           </h1>
           <p className={styles.subtitle}>
-            Diseño con alma. Agendas, papelería y experiencias creativas.
+            Diseño con alma.<br />
+            Agendas, papelería y experiencias creativas.
           </p>
 
           <a href="/catalogo" className={styles.enterButton}>

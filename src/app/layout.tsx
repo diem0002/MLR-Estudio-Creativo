@@ -9,6 +9,9 @@ const dancing = Dancing_Script({ subsets: ["latin"], variable: "--font-dancing" 
 export const metadata: Metadata = {
   title: "MLR Estudio Creativo",
   description: "Diseño con alma. Agendas, papelería y experiencias creativas.",
+  icons: {
+    icon: '/logo.png',
+  },
 };
 
 export default function RootLayout({
