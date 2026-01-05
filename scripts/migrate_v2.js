@@ -6,6 +6,9 @@ async function migrate() {
     try {
         console.log('Beginning migration v2...');
 
+        // 0. Enable UUID extension
+        await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+
         // 1. Create Categories Table
         await client.sql`
       CREATE TABLE IF NOT EXISTS categories (

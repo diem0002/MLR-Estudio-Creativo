@@ -31,7 +31,7 @@ export default function CreateProductForm({ categories }: { categories: Category
             </div>
 
             <div className={styles.inputGroup}>
-                <label className={styles.label}>Precio ($)</label>
+                <label className={styles.label}>Precio (€)</label>
                 <input name="price" type="number" className={styles.input} required />
             </div>
 

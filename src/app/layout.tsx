@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "MLR Estudio Creativo",
   description: "Diseño con alma. Agendas, papelería y experiencias creativas.",
   icons: {
-    icon: '/logo.png',
+    icon: '/favicon.ico',
   },
 };
 

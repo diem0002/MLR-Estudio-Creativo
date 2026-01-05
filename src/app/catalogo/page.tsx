@@ -1,5 +1,6 @@
 import { fetchProducts, fetchCategories } from "@/lib/data";
 import CategoryFilter from "../category-filter";
+import ProductCard from "./product-card";
 import styles from "../page.module.css";
 import { Suspense } from "react";
 
@@ -12,7 +13,8 @@ export default async function CatalogoPage({
     const categoryId = category;
     const products = await fetchProducts(categoryId);
     const categories = await fetchCategories();
-    const whatsappNumber = "5491100000000";
+    const whatsappNumber = "34651746423";
+    const baseUrl = "https://mlr-estudio-creativo.vercel.app";
 
     return (
         <main className={styles.main}>
@@ -25,28 +27,12 @@ export default async function CatalogoPage({
 
                 <div className={styles.grid}>
                     {products.map((product) => (
-                        <div key={product.id} className={styles.card}>
-                            <div className={styles.cardImageContainer}>
-                                <img
-                                    src={product.image_url}
-                                    alt={product.name}
-                                    className={styles.cardImage}
-                                    loading="lazy"
-                                />
-                            </div>
-                            <div className={styles.cardContent}>
-                                <h3 className={styles.cardTitle}>{product.name}</h3>
-                                <p className={styles.cardPrice}>${product.price}</p>
-                                <a
-                                    href={`https://wa.me/${whatsappNumber}?text=Hola, me interesa el producto: ${encodeURIComponent(product.name)}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={styles.whatsappButton}
-                                >
-                                    Me interesa
-                                </a>
-                            </div>
-                        </div>
+                        <ProductCard
+                            key={product.id}
+                            product={product}
+                            whatsappNumber={whatsappNumber}
+                            baseUrl={baseUrl}
+                        />
                     ))}
                     {products.length === 0 && (
                         <div className={styles.gridPlaceholder}>

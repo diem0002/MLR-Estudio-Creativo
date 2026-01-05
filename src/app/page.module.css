@@ -119,14 +119,16 @@
 
   .collageContainer {
     width: 100%;
-    max-width: 100%;
+    max-width: 350px;
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
-    padding: 0 1rem;
+    padding: 0;
+    margin: 0 auto;
+    justify-items: center;
   }
 
   .collageImage {
-    max-width: 140px;
+    max-width: 150px;
     padding: 8px 8px 30px 8px;
   }
 }
@@ -134,11 +136,11 @@
 /* Extra small mobile */
 @media (max-width: 480px) {
   .main {
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
   .hero {
-    padding: 1rem;
+    padding: 1rem 0.5rem;
     gap: 1.5rem;
   }
 
@@ -146,8 +148,13 @@
     max-width: 100px;
   }
 
+  .collageContainer {
+    max-width: 300px;
+    gap: 0.5rem;
+  }
+
   .collageImage {
-    max-width: 120px;
+    max-width: 130px;
     padding: 6px 6px 25px 6px;
   }
 }
@@ -374,18 +381,19 @@
   margin-top: auto;
   display: block;
   text-align: center;
-  background-color: #25D366;
+  background-color: #9BA486;
   color: white;
   padding: 0.75rem;
   border-radius: 0.75rem;
   font-weight: 600;
   text-decoration: none;
-  transition: opacity 0.2s;
-  box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+  transition: all 0.2s;
+  box-shadow: 0 4px 10px rgba(155, 164, 134, 0.2);
 }
 
 .whatsappButton:hover {
-  opacity: 0.9;
+  opacity: 0.85;
+  background-color: #8A9476;
 }
 
 .gridPlaceholder {

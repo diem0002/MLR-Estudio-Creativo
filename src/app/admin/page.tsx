@@ -32,7 +32,7 @@ export default async function AdminPage() {
                         </div>
                         <div className={styles.cardContent}>
                             <h3 className={styles.cardTitle}>{product.name}</h3>
-                            <p className={styles.cardPrice}>${product.price}</p>
+                            <p className={styles.cardPrice}>€{product.price}</p>
                             <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
                                 <Link href={`/admin/edit/${product.id}`} style={{ background: '#E3E6DE', color: '#4A4A4A', padding: '0.5rem 1rem', borderRadius: '4px', textDecoration: 'none', fontWeight: 500 }}>
                                     Editar
