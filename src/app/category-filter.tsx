@@ -17,7 +17,7 @@ export default function CategoryFilter({ categories }: { categories: Category[] 
         } else {
             params.delete('category');
         }
-        replace(`${pathname}?${params.toString()}#catalogo`);
+        replace(`${pathname}?${params.toString()}`);
     };
 
     return (

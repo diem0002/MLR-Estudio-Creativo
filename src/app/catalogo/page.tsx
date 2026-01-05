@@ -6,11 +6,10 @@ import { Suspense } from "react";
 export default async function CatalogoPage({
     searchParams,
 }: {
-    searchParams?: {
-        category?: string;
-    };
+    searchParams: Promise<{ category?: string }>;
 }) {
-    const categoryId = searchParams?.category;
+    const { category } = await searchParams;
+    const categoryId = category;
     const products = await fetchProducts(categoryId);
     const categories = await fetchCategories();
     const whatsappNumber = "5491100000000";

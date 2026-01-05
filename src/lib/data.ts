@@ -1,7 +1,10 @@
 import { sql } from '@vercel/postgres';
 import { Product, Category } from './definitions';
 
+import { unstable_noStore as noStore } from 'next/cache';
+
 export async function fetchProducts(categoryId?: string) {
+    noStore(); // Disable caching for this data fetch
     try {
         if (categoryId) {
             const data = await sql<Product>`
