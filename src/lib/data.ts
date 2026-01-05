@@ -27,6 +27,7 @@ export async function fetchProducts(categoryId?: string) {
 }
 
 export async function fetchRandomProducts(limit: number = 4) {
+    noStore();
     try {
         const data = await sql<Product>`
             SELECT * FROM products

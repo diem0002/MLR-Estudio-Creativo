@@ -82,6 +82,8 @@ export async function deleteProduct(id: number, _formData?: FormData): Promise<v
         // 2. Delete from DB
         await sql`DELETE FROM products WHERE id = ${id}`;
         revalidatePath('/admin');
+        revalidatePath('/catalogo');
+        revalidatePath('/');
     } catch (error) {
         console.error('Error deleting product:', error);
     }
