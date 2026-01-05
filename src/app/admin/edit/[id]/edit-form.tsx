@@ -2,7 +2,7 @@
 
 import { useActionState } from 'react';
 import { updateProduct } from '@/lib/actions';
-import styles from '../admin.module.css';
+import styles from '../../admin.module.css';
 import { Category, Product } from '@/lib/definitions';
 
 export default function EditProductForm({ product, categories }: { product: Product, categories: Category[] }) {

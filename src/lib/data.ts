@@ -23,6 +23,20 @@ export async function fetchProducts(categoryId?: string) {
     }
 }
 
+export async function fetchRandomProducts(limit: number = 4) {
+    try {
+        const data = await sql<Product>`
+            SELECT * FROM products
+            ORDER BY RANDOM()
+            LIMIT ${limit}
+        `;
+        return data.rows;
+    } catch (error) {
+        console.error('Database Error:', error);
+        return [];
+    }
+}
+
 export async function fetchCategories() {
     try {
         const data = await sql<Category>`

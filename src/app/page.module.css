@@ -9,27 +9,27 @@
 .hero {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  /* Center vertical */
   justify-content: center;
-  text-align: center;
+  /* Center horizontal */
   padding: 2rem;
   width: 100%;
-  position: relative;
-  /* For absolute positioning of collage elements if needed, though grid is safer */
+  gap: 4rem;
+  /* Space between text and collage */
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .brandingContainer {
+  flex: 1;
   display: flex;
-  flex-direction: row;
-  /* Side by side */
-  align-items: center;
-  gap: 2rem;
-  margin-bottom: 3rem;
+  flex-direction: column;
+  align-items: flex-start;
+  /* Align text left */
+  text-align: left;
   z-index: 2;
-  /* On top of random images */
-  flex-wrap: wrap;
-  justify-content: center;
+  max-width: 600px;
 }
 
 .textContainer {

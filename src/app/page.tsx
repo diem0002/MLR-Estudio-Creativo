@@ -1,5 +1,6 @@
+```javascript
 import styles from "./page.module.css";
-import { fetchProducts, fetchCategories } from "@/lib/data";
+import { fetchProducts, fetchCategories, fetchRandomProducts } from "@/lib/data";
 import CategoryFilter from "./category-filter";
 
 export default async function Home({
@@ -10,44 +11,52 @@ export default async function Home({
   };
 }) {
   const categoryId = searchParams?.category;
-  const products = await fetchProducts(categoryId);
-  const categories = await fetchCategories();
+  // Parallel fetching
+  const [products, categories, randomProducts] = await Promise.all([
+      fetchProducts(categoryId),
+      fetchCategories(),
+      fetchRandomProducts(4)
+  ]);
+  
   const whatsappNumber = "5491100000000"; // Generic placeholder
 
   return (
     <main className={styles.main}>
-
+      
       {/* Hero Section */}
       <section className={styles.hero}>
-
+        
+        {/* Left: Branding */}
         <div className={styles.brandingContainer}>
-          <img src="/logo.png" alt="MLR Estudio Creativo Logo" className={styles.logo} />
-
-          <div className={styles.textContainer}>
+            <div className={styles.logoContainer}>
+                <img src="/logo.png" alt="MLR Estudio Creativo Logo" className={styles.logo} />
+            </div>
+            
             <h1 className={styles.title}>
-              MLR Estudio Creativo
+            MLR Estudio Creativo
             </h1>
             <p className={styles.subtitle}>
-              Diseño con alma. Agendas, papelería y experiencias creativas.
+            Diseño con alma. Agendas, papelería y experiencias creativas.
             </p>
-          </div>
+
+            <a href="#catalogo" className={styles.enterButton}>
+            Ingresar
+            </a>
         </div>
 
-        {/* Visual Collage - Just 3 images for style */}
+        {/* Right: Visual Collage (Random) */}
         <div className={styles.collageContainer}>
-          {products.slice(0, 3).map((product, index) => (
-            <img
-              key={`collage-${index}`}
-              src={product.image_url}
-              alt=""
-              className={styles.collageImage}
-            />
-          ))}
+            {randomProducts.map((product, index) => (
+                <img 
+                    key={`collage - ${ index } `}
+                    src={product.image_url} 
+                    alt="" 
+                    className={styles.collageImage}
+                />
+            ))}
+             {/* If few products, maybe repeat or just show fewer */}
         </div>
 
-        <a href="#catalogo" className={styles.enterButton}>
-          Ingresar
-        </a>
       </section>
 
       {/* Products Section */}
@@ -55,50 +64,50 @@ export default async function Home({
         <div className={styles.actions}>
           <a
             href={`https://wa.me/${whatsappNumber}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.buttonSecondary}
-          >
-            Contacto Directo
-          </a>
+target = "_blank"
+rel = "noopener noreferrer"
+className = { styles.buttonSecondary }
+  >
+  Contacto Directo
+          </a >
+        </div >
+
+  {/* Filter */ }
+  < CategoryFilter categories = { categories } />
+
+    <div className={styles.grid}>
+      {products.map((product) => (
+        <div key={product.id} className={styles.card}>
+          <div className={styles.cardImageContainer}>
+            <img
+              src={product.image_url}
+              alt={product.name}
+              className={styles.cardImage}
+              loading="lazy"
+            />
+          </div>
+          <div className={styles.cardContent}>
+            <h3 className={styles.cardTitle}>{product.name}</h3>
+            <p className={styles.cardPrice}>${product.price}</p>
+            <a
+              href={`https://wa.me/${whatsappNumber}?text=Hola, me interesa el producto: ${encodeURIComponent(product.name)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.whatsappButton}
+            >
+              Me interesa
+            </a>
+          </div>
         </div>
-
-        {/* Filter */}
-        <CategoryFilter categories={categories} />
-
-        <div className={styles.grid}>
-          {products.map((product) => (
-            <div key={product.id} className={styles.card}>
-              <div className={styles.cardImageContainer}>
-                <img
-                  src={product.image_url}
-                  alt={product.name}
-                  className={styles.cardImage}
-                  loading="lazy"
-                />
-              </div>
-              <div className={styles.cardContent}>
-                <h3 className={styles.cardTitle}>{product.name}</h3>
-                <p className={styles.cardPrice}>${product.price}</p>
-                <a
-                  href={`https://wa.me/${whatsappNumber}?text=Hola, me interesa el producto: ${encodeURIComponent(product.name)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.whatsappButton}
-                >
-                  Me interesa
-                </a>
-              </div>
-            </div>
-          ))}
-          {products.length === 0 && (
-            <div className={styles.gridPlaceholder}>
-              <p>Pronto subiremos nuestros productos...</p>
-            </div>
-          )}
+      ))}
+      {products.length === 0 && (
+        <div className={styles.gridPlaceholder}>
+          <p>Pronto subiremos nuestros productos...</p>
         </div>
-      </section>
+      )}
+    </div>
+      </section >
 
-    </main>
+    </main >
   );
 }
