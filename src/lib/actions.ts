@@ -36,7 +36,7 @@ export async function createProduct(prevState: any, formData: FormData) {
         name: formData.get('name'),
         price: formData.get('price'),
         description: formData.get('description'),
-        image_url: 'placeholder',
+        image_url: 'https://placeholder.com',
     });
 
     if (!parse.success) {
