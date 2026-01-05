@@ -40,7 +40,10 @@
   --ring: var(--rose-primary);
 
   --white: #ffffff;
-  --font-sans: var(--font-sans);
+  /* Fonts */
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+  --font-script: var(--font-dancing);
 
   --radius-sm: 8px;
   --radius-md: 12px;

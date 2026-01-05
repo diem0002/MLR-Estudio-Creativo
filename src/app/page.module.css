@@ -15,19 +15,36 @@
   gap: 2rem;
 }
 
+.logoContainer {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  max-width: 200px;
+  /* Adjust size as needed */
+  height: auto;
+  border-radius: 50%;
+  /* Optional: if logo is circular */
+}
+
 .title {
+  font-family: var(--font-serif);
   font-size: 3.5rem;
-  font-weight: 800;
-  color: var(--primary-foreground);
+  font-weight: 700;
+  color: var(--rose-dark);
+  /* Using palette color */
   margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
 }
 
 .subtitle {
-  font-size: 1.25rem;
-  color: var(--foreground);
-  opacity: 0.8;
-  max-width: 600px;
+  font-family: var(--font-script);
+  font-size: 2rem;
+  /* Larger for script font readability */
+  color: var(--text-main);
+  opacity: 0.9;
+  max-width: 700px;
   margin: 0 auto;
 }
 

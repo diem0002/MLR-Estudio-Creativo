@@ -8,6 +8,11 @@ export default async function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.container}>
+        {/* Logo Section */}
+        <div className={styles.logoContainer}>
+          <img src="/logo.png" alt="MLR Estudio Creativo Logo" className={styles.logo} />
+        </div>
+
         <h1 className={styles.title}>
           MLR Estudio Creativo
         </h1>

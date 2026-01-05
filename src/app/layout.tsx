@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display, Dancing_Script } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
+const dancing = Dancing_Script({ subsets: ["latin"], variable: "--font-dancing" });
 
 export const metadata: Metadata = {
   title: "MLR Estudio Creativo",
-  description: "Diseño, Agendas y Creatividad",
+  description: "Diseño con alma. Agendas, papelería y experiencias creativas.",
 };
 
 export default function RootLayout({
@@ -16,9 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={inter.variable}>
-        {children}
-      </body>
+      <body className={`${inter.variable} ${playfair.variable} ${dancing.variable}`}>{children}</body>
     </html>
   );
 }
