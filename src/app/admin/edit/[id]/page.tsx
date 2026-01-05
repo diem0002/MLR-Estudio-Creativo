@@ -3,10 +3,11 @@ import EditProductForm from './edit-form';
 import styles from '../../admin.module.css';
 import { notFound } from 'next/navigation';
 
-export default async function EditProductPage({ params }: { params: { id: string } }) {
-    const id = Number(params.id);
+export default async function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const productId = Number(id);
     const [product, categories] = await Promise.all([
-        fetchProductById(id),
+        fetchProductById(productId),
         fetchCategories(),
     ]);
 
