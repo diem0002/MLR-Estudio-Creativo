@@ -16,9 +16,14 @@ export default async function Home() {
         </p>
 
         <div className={styles.actions}>
-          <button className={styles.buttonSecondary}>
+          <a
+            href={`https://wa.me/${whatsappNumber}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.buttonSecondary}
+          >
             Contacto
-          </button>
+          </a>
         </div>
 
         <div className={styles.grid}>

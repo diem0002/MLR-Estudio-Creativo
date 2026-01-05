@@ -22,6 +22,23 @@
   --text-light: #666666;
   --text-white: #FFFFFF;
 
+  /* Mappings for compatibility with existing modules */
+  --background: var(--bg-color);
+  --foreground: var(--text-main);
+
+  --primary: var(--rose-primary);
+  --primary-foreground: var(--rose-dark);
+
+  --secondary: var(--olive-primary);
+  --secondary-foreground: var(--white);
+
+  --card: var(--white);
+  --card-foreground: var(--text-main);
+
+  --border: var(--rose-light);
+  --input: var(--white);
+  --ring: var(--rose-primary);
+
   --white: #ffffff;
   --font-sans: var(--font-sans);
 
@@ -50,10 +67,10 @@ body {
   background-color: var(--bg-color);
   /* Texture overlay */
   background-image: url('/bg-texture.png');
-  background-size: 400px;
-  /* Slighty larger pattern */
-  background-repeat: repeat;
-  background-blend-mode: multiply;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center;
 
   font-family: var(--font-sans);
   min-height: 100vh;
