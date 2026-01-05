@@ -69,9 +69,6 @@ export async function createProduct(prevState: any, formData: FormData) {
     revalidatePath('/admin');
     redirect('/admin');
 }
-
-import { del } from '@vercel/blob';
-
 export async function deleteProduct(id: number, _formData?: FormData): Promise<void> {
     try {
         // 1. Get image URL to delete from Blob
