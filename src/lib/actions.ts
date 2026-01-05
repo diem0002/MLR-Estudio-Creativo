@@ -76,3 +76,34 @@ export async function deleteProduct(id: number, _formData?: FormData): Promise<v
         console.error('Error deleting product:', error);
     }
 }
+
+export async function createCategory(prevState: any, formData: FormData) {
+    const parse = CategorySchema.safeParse({
+        name: formData.get('name'),
+    });
+
+    if (!parse.success) {
+        return { message: 'Nombre inválido' };
+    }
+
+    try {
+        await sql`
+        INSERT INTO categories (name)
+        VALUES (${parse.data.name})
+      `;
+    } catch (error: any) {
+        return { message: 'Error: ' + error.message };
+    }
+
+    revalidatePath('/admin/categories');
+    redirect('/admin/categories');
+}
+
+export async function deleteCategory(id: string) {
+    try {
+        await sql`DELETE FROM categories WHERE id = ${id}`;
+        revalidatePath('/admin/categories');
+    } catch (error) {
+        console.error('Error deleting category:', error);
+    }
+}
