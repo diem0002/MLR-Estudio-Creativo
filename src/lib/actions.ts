@@ -114,7 +114,6 @@ export async function deleteCategory(id: string, _formData?: FormData) {
         await sql`DELETE FROM categories WHERE id = ${id}`;
         revalidatePath('/admin/categories');
     } catch (error) {
-    } catch (error) {
         console.error('Error deleting category:', error);
     }
 }

@@ -8,7 +8,6 @@
 
 .hero {
   min-height: 100vh;
-  /* Full viewport height */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,6 +15,71 @@
   text-align: center;
   padding: 2rem;
   width: 100%;
+  position: relative;
+  /* For absolute positioning of collage elements if needed, though grid is safer */
+}
+
+.brandingContainer {
+  display: flex;
+  flex-direction: row;
+  /* Side by side */
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  z-index: 2;
+  /* On top of random images */
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.textContainer {
+  text-align: left;
+}
+
+/* Mobile responsive for branding */
+@media (max-width: 768px) {
+  .brandingContainer {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .textContainer {
+    text-align: center;
+  }
+}
+
+.collageContainer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin-bottom: 3rem;
+  /* Visual only, no interaction */
+  pointer-events: none;
+}
+
+.collageImage {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transform: rotate(var(--rotation));
+  transition: transform 0.5s ease;
+}
+
+/* Random rotations via nth-child */
+.collageImage:nth-child(odd) {
+  --rotation: -6deg;
+}
+
+.collageImage:nth-child(even) {
+  --rotation: 6deg;
+}
+
+.collageImage:nth-child(3n) {
+  --rotation: -3deg;
 }
 
 .productsSection {

@@ -10,16 +10,31 @@ export default async function Home() {
 
       {/* Hero Section */}
       <section className={styles.hero}>
-        <div className={styles.logoContainer}>
+
+        <div className={styles.brandingContainer}>
           <img src="/logo.png" alt="MLR Estudio Creativo Logo" className={styles.logo} />
+
+          <div className={styles.textContainer}>
+            <h1 className={styles.title}>
+              MLR Estudio Creativo
+            </h1>
+            <p className={styles.subtitle}>
+              Diseño con alma. Agendas, papelería y experiencias creativas.
+            </p>
+          </div>
         </div>
 
-        <h1 className={styles.title}>
-          MLR Estudio Creativo
-        </h1>
-        <p className={styles.subtitle}>
-          Diseño con alma. Agendas, papelería y experiencias creativas.
-        </p>
+        {/* Visual Collage - Just 3 images for style */}
+        <div className={styles.collageContainer}>
+          {products.slice(0, 3).map((product, index) => (
+            <img
+              key={`collage-${index}`}
+              src={product.image_url}
+              alt=""
+              className={styles.collageImage}
+            />
+          ))}
+        </div>
 
         <a href="#catalogo" className={styles.enterButton}>
           Ingresar
