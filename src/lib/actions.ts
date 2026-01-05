@@ -59,9 +59,9 @@ export async function createProduct(prevState: any, formData: FormData) {
         INSERT INTO products (name, price, description, image_url)
         VALUES (${name}, ${price}, ${description}, ${blob.url})
       `;
-    } catch (error) {
+    } catch (error: any) {
         console.error(error);
-        return { message: 'Error al crear producto' };
+        return { message: 'Error: ' + error.message };
     }
 
     revalidatePath('/admin');
