@@ -7,8 +7,9 @@ export default async function Home() {
 
   return (
     <main className={styles.main}>
-      <div className={styles.container}>
-        {/* Logo Section */}
+
+      {/* Hero Section */}
+      <section className={styles.hero}>
         <div className={styles.logoContainer}>
           <img src="/logo.png" alt="MLR Estudio Creativo Logo" className={styles.logo} />
         </div>
@@ -20,6 +21,13 @@ export default async function Home() {
           Diseño con alma. Agendas, papelería y experiencias creativas.
         </p>
 
+        <a href="#catalogo" className={styles.enterButton}>
+          Ingresar
+        </a>
+      </section>
+
+      {/* Products Section */}
+      <section id="catalogo" className={styles.productsSection}>
         <div className={styles.actions}>
           <a
             href={`https://wa.me/${whatsappNumber}`}
@@ -27,7 +35,7 @@ export default async function Home() {
             rel="noopener noreferrer"
             className={styles.buttonSecondary}
           >
-            Contacto
+            Contacto Directo
           </a>
         </div>
 
@@ -51,18 +59,19 @@ export default async function Home() {
                   rel="noopener noreferrer"
                   className={styles.whatsappButton}
                 >
-                  Comprar / Consultar
+                  Me interesa
                 </a>
               </div>
             </div>
           ))}
           {products.length === 0 && (
             <div className={styles.gridPlaceholder}>
-              <p>Pronto subiremos nustros productos...</p>
+              <p>Pronto subiremos nuestros productos...</p>
             </div>
           )}
         </div>
-      </div>
+      </section>
+
     </main>
   );
 }
