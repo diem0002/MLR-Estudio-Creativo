@@ -2,7 +2,7 @@
 
 import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
-import { put } from '@vercel/blob';
+import { put, del } from '@vercel/blob';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { ProductSchema, CategorySchema } from './zod';
@@ -70,8 +70,19 @@ export async function createProduct(prevState: any, formData: FormData) {
     redirect('/admin');
 }
 
+import { del } from '@vercel/blob';
+
 export async function deleteProduct(id: number, _formData?: FormData): Promise<void> {
     try {
+        // 1. Get image URL to delete from Blob
+        const data = await sql`SELECT image_url FROM products WHERE id = ${id}`;
+        const product = data.rows[0];
+
+        if (product && product.image_url && !product.image_url.includes('placeholder')) {
+            await del(product.image_url);
+        }
+
+        // 2. Delete from DB
         await sql`DELETE FROM products WHERE id = ${id}`;
         revalidatePath('/admin');
     } catch (error) {
