@@ -40,7 +40,8 @@ export async function createProduct(prevState: any, formData: FormData) {
     });
 
     if (!parse.success) {
-        return { message: 'Campos inválidos: ' + parse.error.errors.map((e: any) => e.message).join(', ') };
+        const errorMessages = parse.error.issues.map(issue => issue.message).join(', ');
+        return { message: 'Campos inválidos: ' + errorMessages };
     }
 
     const imageFile = formData.get('image') as File;
@@ -67,7 +68,7 @@ export async function createProduct(prevState: any, formData: FormData) {
     redirect('/admin');
 }
 
-export async function deleteProduct(id: number) {
+export async function deleteProduct(id: number, _formData?: FormData): Promise<void> {
     try {
         await sql`DELETE FROM products WHERE id = ${id}`;
         revalidatePath('/admin');
