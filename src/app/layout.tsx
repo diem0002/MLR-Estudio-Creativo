@@ -18,7 +18,6 @@ export default function RootLayout({
     <html lang="es">
       <body className={inter.variable}>
         {children}
-        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
       </body>
     </html>
   );

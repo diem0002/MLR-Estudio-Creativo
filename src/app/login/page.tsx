@@ -4,11 +4,14 @@ import { useActionState } from 'react';
 import { authenticate } from '@/lib/actions';
 import styles from './login.module.css';
 
+import Script from 'next/script';
+
 export default function LoginPage() {
     const [errorMessage, dispatch] = useActionState(authenticate, undefined);
 
     return (
         <main className={styles.page}>
+            <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="lazyOnload" />
             <form action={dispatch} className={styles.formContainer}>
                 <div>
                     <h1 className={styles.title}>Acceso Admin</h1>
