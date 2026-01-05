@@ -1,21 +1,21 @@
 .main {
   min-height: 100vh;
-  padding: 4rem 2rem;
+  max-height: 100vh;
+  /* Fixed viewport - no scroll */
+  overflow: hidden;
+  /* Prevent scroll */
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .hero {
-  min-height: 100vh;
   display: flex;
   align-items: center;
-  /* Center vertical */
   justify-content: center;
-  /* Center horizontal */
   padding: 2rem;
   width: 100%;
   gap: 4rem;
-  /* Space between text and collage */
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -25,47 +25,45 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* Align text left */
   text-align: left;
   z-index: 2;
   max-width: 600px;
+}
+
+.logoContainer {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.logo {
+  max-width: 150px;
+  height: auto;
+  border-radius: 50%;
 }
 
 .textContainer {
   text-align: left;
 }
 
-/* Mobile responsive for branding */
-@media (max-width: 768px) {
-  .brandingContainer {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .textContainer {
-    text-align: center;
-  }
-}
-
 .collageContainer {
-  display: flex;
-  justify-content: center;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
-  flex-wrap: wrap;
-  max-width: 800px;
-  margin-bottom: 3rem;
-  /* Visual only, no interaction */
+  max-width: 500px;
   pointer-events: none;
 }
 
 .collageImage {
-  width: 200px;
-  height: 240px;
-  /* Taller for polaroid look */
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  aspect-ratio: 5/6;
+  /* Polaroid proportions */
   object-fit: cover;
   background-color: white;
   padding: 10px 10px 40px 10px;
-  /* Bottom padding for polaroid text area */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   transform: rotate(var(--rotation));
   transition: transform 0.3s ease;
@@ -88,6 +86,65 @@
 
 .collageImage:nth-child(3n) {
   --rotation: -3deg;
+}
+
+/* Mobile responsive */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1.5rem;
+    justify-content: center;
+  }
+
+  .brandingContainer {
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .logoContainer {
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .logo {
+    max-width: 120px;
+  }
+
+  .collageContainer {
+    width: 100%;
+    max-width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    padding: 0 1rem;
+  }
+
+  .collageImage {
+    max-width: 140px;
+    padding: 8px 8px 30px 8px;
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 480px) {
+  .main {
+    padding: 1rem;
+  }
+
+  .hero {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+
+  .logo {
+    max-width: 100px;
+  }
+
+  .collageImage {
+    max-width: 120px;
+    padding: 6px 6px 25px 6px;
+  }
 }
 
 .productsSection {
@@ -117,6 +174,23 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(192, 132, 142, 0.6);
   background-color: var(--rose-dark);
+}
+
+/* Mobile button adjustments */
+@media (max-width: 900px) {
+  .enterButton {
+    margin-top: 2rem;
+    padding: 0.875rem 2.5rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .enterButton {
+    margin-top: 1.5rem;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+  }
 }
 
 .logoContainer {
@@ -168,18 +242,47 @@
   font-size: 3.5rem;
   font-weight: 700;
   color: var(--rose-dark);
-  /* Using palette color */
   margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.titleLine {
+  display: block;
 }
 
 .subtitle {
   font-family: var(--font-script);
-  font-size: 2rem;
-  /* Larger for script font readability */
+  font-size: 1.5rem;
   color: var(--text-main);
   opacity: 0.9;
   max-width: 700px;
-  margin: 0 auto;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+/* Mobile title adjustments */
+@media (max-width: 900px) {
+  .title {
+    font-size: 2.5rem;
+    align-items: center;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
 }
 
 .actions {

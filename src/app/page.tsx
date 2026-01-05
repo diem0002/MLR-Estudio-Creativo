@@ -17,7 +17,9 @@ export default async function Home() {
           </div>
 
           <h1 className={styles.title}>
-            MLR Estudio Creativo
+            <span className={styles.titleLine}>MLR</span>
+            <span className={styles.titleLine}>Estudio</span>
+            <span className={styles.titleLine}>Creativo</span>
           </h1>
           <p className={styles.subtitle}>
             Diseño con alma. Agendas, papelería y experiencias creativas.
