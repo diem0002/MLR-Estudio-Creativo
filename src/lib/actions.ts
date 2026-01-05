@@ -114,6 +114,67 @@ export async function deleteCategory(id: string, _formData?: FormData) {
         await sql`DELETE FROM categories WHERE id = ${id}`;
         revalidatePath('/admin/categories');
     } catch (error) {
+    } catch (error) {
         console.error('Error deleting category:', error);
     }
+}
+
+export async function updateProduct(id: number, prevState: any, formData: FormData) {
+    const parse = ProductSchema.safeParse({
+        name: formData.get('name'),
+        price: formData.get('price'),
+        description: formData.get('description'),
+        image_url: 'https://placeholder.com', // Placeholder for validation
+        category_id: formData.get('category_id'),
+    });
+
+    if (!parse.success) {
+        const errorMessages = parse.error.issues.map(issue => issue.message).join(', ');
+        return { message: 'Campos inválidos: ' + errorMessages };
+    }
+
+    const { name, price, description, category_id } = parse.data;
+    const imageFile = formData.get('image') as File;
+
+    try {
+        let imageUrlToUpdate = null;
+
+        // If a new image is provided, upload it and delete the old one
+        if (imageFile && imageFile.size > 0) {
+            const blob = await put(imageFile.name, imageFile, {
+                access: 'public',
+                addRandomSuffix: true,
+            });
+            imageUrlToUpdate = blob.url;
+
+            // Delete old image
+            const oldData = await sql`SELECT image_url FROM products WHERE id = ${id}`;
+            const oldProduct = oldData.rows[0];
+            if (oldProduct && oldProduct.image_url && !oldProduct.image_url.includes('placeholder')) {
+                // We don't await deletion to not block the update, or we could. 
+                // Ideally await to ensure cleanup.
+                await del(oldProduct.image_url);
+            }
+        }
+
+        if (imageUrlToUpdate) {
+            await sql`
+                UPDATE products 
+                SET name = ${name}, price = ${price}, description = ${description}, category_id = ${category_id || null}, image_url = ${imageUrlToUpdate}
+                WHERE id = ${id}
+            `;
+        } else {
+            await sql`
+                UPDATE products 
+                SET name = ${name}, price = ${price}, description = ${description}, category_id = ${category_id || null}
+                WHERE id = ${id}
+            `;
+        }
+
+    } catch (error: any) {
+        return { message: 'Error: ' + error.message };
+    }
+
+    revalidatePath('/admin');
+    redirect('/admin');
 }

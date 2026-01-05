@@ -26,3 +26,16 @@ export async function fetchCategories() {
         throw new Error('Failed to fetch categories.');
     }
 }
+
+export async function fetchProductById(id: number) {
+    try {
+        const data = await sql<Product>`
+      SELECT * FROM products
+      WHERE id = ${id}
+    `;
+        return data.rows[0];
+    } catch (error) {
+        console.error('Database Error:', error);
+        throw new Error('Failed to fetch product.');
+    }
+}
