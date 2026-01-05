@@ -1,6 +1,7 @@
 import styles from "./page.module.css";
 import { fetchProducts, fetchCategories, fetchRandomProducts } from "@/lib/data";
 import CategoryFilter from "./category-filter";
+import { Suspense } from "react";
 
 export default async function Home({
   searchParams,
@@ -72,7 +73,9 @@ export default async function Home({
         </div >
 
         {/* Filter */}
-        < CategoryFilter categories={categories} />
+        <Suspense fallback={<div>Loading filters...</div>}>
+          <CategoryFilter categories={categories} />
+        </Suspense>
 
         <div className={styles.grid}>
           {products.map((product) => (
