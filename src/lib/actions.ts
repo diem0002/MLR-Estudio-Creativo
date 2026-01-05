@@ -1,0 +1,77 @@
+'use server';
+
+import { signIn, signOut } from '@/auth';
+import { AuthError } from 'next-auth';
+import { put } from '@vercel/blob';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+import { ProductSchema } from './zod';
+import { sql } from '@vercel/postgres';
+
+export async function authenticate(
+    prevState: string | undefined,
+    formData: FormData,
+) {
+    try {
+        await signIn('credentials', formData);
+    } catch (error) {
+        if (error instanceof AuthError) {
+            switch (error.type) {
+                case 'CredentialsSignin':
+                    return 'Invalid credentials.';
+                default:
+                    return 'Something went wrong.';
+            }
+        }
+        throw error;
+    }
+}
+
+export async function logOut() {
+    await signOut();
+}
+
+export async function createProduct(prevState: any, formData: FormData) {
+    const parse = ProductSchema.safeParse({
+        name: formData.get('name'),
+        price: formData.get('price'),
+        description: formData.get('description'),
+        image_url: 'placeholder',
+    });
+
+    if (!parse.success) {
+        return { message: 'Campos inválidos: ' + parse.error.errors.map((e: any) => e.message).join(', ') };
+    }
+
+    const imageFile = formData.get('image') as File;
+    if (!imageFile || imageFile.size === 0) {
+        return { message: 'La imagen es obligatoria' };
+    }
+
+    try {
+        const blob = await put(imageFile.name, imageFile, {
+            access: 'public',
+        });
+
+        const { name, price, description } = parse.data;
+        await sql`
+        INSERT INTO products (name, price, description, image_url)
+        VALUES (${name}, ${price}, ${description}, ${blob.url})
+      `;
+    } catch (error) {
+        console.error(error);
+        return { message: 'Error al crear producto' };
+    }
+
+    revalidatePath('/admin');
+    redirect('/admin');
+}
+
+export async function deleteProduct(id: number) {
+    try {
+        await sql`DELETE FROM products WHERE id = ${id}`;
+        revalidatePath('/admin');
+    } catch (error) {
+        return { message: 'Error eliminando producto' };
+    }
+}
