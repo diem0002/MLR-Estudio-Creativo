@@ -11,4 +11,10 @@ export type Product = {
     price: number;
     image_url: string;
     created_at: Date;
+    category_id?: string;
+};
+
+export type Category = {
+    id: string;
+    name: string;
 };

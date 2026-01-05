@@ -1,5 +1,5 @@
 import { sql } from '@vercel/postgres';
-import { Product } from './definitions';
+import { Product, Category } from './definitions';
 
 export async function fetchProducts() {
     try {
@@ -11,5 +11,18 @@ export async function fetchProducts() {
     } catch (error) {
         console.error('Database Error:', error);
         throw new Error('Failed to fetch products.');
+    }
+}
+
+export async function fetchCategories() {
+    try {
+        const data = await sql<Category>`
+      SELECT * FROM categories
+      ORDER BY name ASC
+    `;
+        return data.rows;
+    } catch (error) {
+        console.error('Database Error:', error);
+        throw new Error('Failed to fetch categories.');
     }
 }

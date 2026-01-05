@@ -11,3 +11,7 @@ export const ProductSchema = z.object({
     price: z.coerce.number().gt(0, 'El precio debe ser mayor a 0.'),
     image_url: z.string().url('URL de imagen inválida.'),
 });
+
+export const CategorySchema = z.object({
+    name: z.string().min(1, 'El nombre es requerido.'),
+});

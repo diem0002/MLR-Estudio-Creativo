@@ -5,7 +5,7 @@ import { AuthError } from 'next-auth';
 import { put } from '@vercel/blob';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { ProductSchema } from './zod';
+import { ProductSchema, CategorySchema } from './zod';
 import { sql } from '@vercel/postgres';
 
 export async function authenticate(
