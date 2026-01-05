@@ -60,13 +60,22 @@
 }
 
 .collageImage {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 240px;
+  /* Taller for polaroid look */
   object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  padding: 10px 10px 40px 10px;
+  /* Bottom padding for polaroid text area */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   transform: rotate(var(--rotation));
-  transition: transform 0.5s ease;
+  transition: transform 0.3s ease;
+}
+
+.collageImage:hover {
+  transform: scale(1.05) rotate(0deg);
+  z-index: 10;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 /* Random rotations via nth-child */
