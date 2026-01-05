@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { fetchCategories } from '@/lib/data';
-import { createCategory, deleteCategory } from '@/lib/actions';
+import { deleteCategory } from '@/lib/actions';
 import styles from '../admin.module.css';
+import { CreateCategoryForm } from './create-form';
 
 export default async function CategoriesPage() {
     const categories = await fetchCategories();
@@ -14,18 +15,7 @@ export default async function CategoriesPage() {
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
                 {/* Create Form */}
-                <div className={styles.card}>
-                    <h3>Nueva Categoría</h3>
-                    <form action={createCategory} className={styles.form}>
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label}>Nombre</label>
-                            <input name="name" type="text" className={styles.input} required placeholder="Ej. Agendas" />
-                        </div>
-                        <button type="submit" className={styles.createButton}>
-                            Crear
-                        </button>
-                    </form>
-                </div>
+                <CreateCategoryForm />
 
                 {/* List */}
                 <div className={styles.card}>

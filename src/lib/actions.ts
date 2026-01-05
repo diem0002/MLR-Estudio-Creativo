@@ -99,7 +99,7 @@ export async function createCategory(prevState: any, formData: FormData) {
     redirect('/admin/categories');
 }
 
-export async function deleteCategory(id: string) {
+export async function deleteCategory(id: string, _formData?: FormData) {
     try {
         await sql`DELETE FROM categories WHERE id = ${id}`;
         revalidatePath('/admin/categories');
