@@ -1,12 +1,17 @@
-.main {
+.homeMain {
   min-height: 100vh;
   max-height: 100vh;
-  /* Fixed viewport - no scroll */
   overflow: hidden;
-  /* Prevent scroll */
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.main {
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  display: flex;
+  justify-content: center;
 }
 
 .hero {

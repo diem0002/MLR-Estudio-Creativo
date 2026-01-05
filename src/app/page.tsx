@@ -5,7 +5,7 @@ export default async function Home() {
   const randomProducts = await fetchRandomProducts(4);
 
   return (
-    <main className={styles.main}>
+    <main className={styles.homeMain}>
 
       {/* Hero Section */}
       <section className={styles.hero}>
