@@ -72,6 +72,6 @@ export async function deleteProduct(id: number) {
         await sql`DELETE FROM products WHERE id = ${id}`;
         revalidatePath('/admin');
     } catch (error) {
-        return { message: 'Error eliminando producto' };
+        console.error('Error deleting product:', error);
     }
 }
