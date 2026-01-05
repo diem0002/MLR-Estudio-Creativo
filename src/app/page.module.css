@@ -125,6 +125,36 @@
   /* Optional: if logo is circular */
 }
 
+.filterContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.filterButton {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--rose-primary);
+  background: transparent;
+  color: var(--rose-dark);
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.filterButton:hover {
+  background: var(--rose-light);
+}
+
+.activeFilter {
+  background: var(--rose-primary);
+  color: white;
+  border-color: var(--rose-primary);
+}
+
 .title {
   font-family: var(--font-serif);
   font-size: 3.5rem;

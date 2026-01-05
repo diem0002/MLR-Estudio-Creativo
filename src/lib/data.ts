@@ -1,13 +1,22 @@
 import { sql } from '@vercel/postgres';
 import { Product, Category } from './definitions';
 
-export async function fetchProducts() {
+export async function fetchProducts(categoryId?: string) {
     try {
-        const data = await sql<Product>`
-      SELECT * FROM products
-      ORDER BY created_at DESC
-    `;
-        return data.rows;
+        if (categoryId) {
+            const data = await sql<Product>`
+                SELECT * FROM products
+                WHERE category_id = ${categoryId}
+                ORDER BY created_at DESC
+            `;
+            return data.rows;
+        } else {
+            const data = await sql<Product>`
+                SELECT * FROM products
+                ORDER BY created_at DESC
+            `;
+            return data.rows;
+        }
     } catch (error) {
         console.error('Database Error:', error);
         throw new Error('Failed to fetch products.');

@@ -1,8 +1,17 @@
 import styles from "./page.module.css";
-import { fetchProducts } from "@/lib/data";
+import { fetchProducts, fetchCategories } from "@/lib/data";
+import CategoryFilter from "./category-filter";
 
-export default async function Home() {
-  const products = await fetchProducts();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: {
+    category?: string;
+  };
+}) {
+  const categoryId = searchParams?.category;
+  const products = await fetchProducts(categoryId);
+  const categories = await fetchCategories();
   const whatsappNumber = "5491100000000"; // Generic placeholder
 
   return (
@@ -53,6 +62,9 @@ export default async function Home() {
             Contacto Directo
           </a>
         </div>
+
+        {/* Filter */}
+        <CategoryFilter categories={categories} />
 
         <div className={styles.grid}>
           {products.map((product) => (
