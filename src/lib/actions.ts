@@ -37,6 +37,7 @@ export async function createProduct(prevState: any, formData: FormData) {
         price: formData.get('price'),
         description: formData.get('description'),
         image_url: 'https://placeholder.com',
+        category_id: formData.get('category_id'),
     });
 
     if (!parse.success) {
@@ -52,12 +53,13 @@ export async function createProduct(prevState: any, formData: FormData) {
     try {
         const blob = await put(imageFile.name, imageFile, {
             access: 'public',
+            addRandomSuffix: true,
         });
 
-        const { name, price, description } = parse.data;
+        const { name, price, description, category_id } = parse.data;
         await sql`
-        INSERT INTO products (name, price, description, image_url)
-        VALUES (${name}, ${price}, ${description}, ${blob.url})
+        INSERT INTO products (name, price, description, image_url, category_id)
+        VALUES (${name}, ${price}, ${description}, ${blob.url}, ${category_id || null})
       `;
     } catch (error: any) {
         console.error(error);
