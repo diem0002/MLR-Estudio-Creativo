@@ -59,6 +59,35 @@ export default function ChangeCredentialsPage() {
                     />
                 </div>
 
+                <hr style={{ margin: '1.5rem 0', border: 'none', borderTop: '1px solid var(--border)' }} />
+
+                <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--rose-dark)' }}>
+                    Pregunta de Seguridad (Recuperación de Contraseña)
+                </h3>
+
+                <div className={styles.inputGroup}>
+                    <label className={styles.label}>Pregunta de Seguridad</label>
+                    <input
+                        name="securityQuestion"
+                        type="text"
+                        className={styles.input}
+                        placeholder="Ej: ¿Nombre de tu primera mascota?"
+                    />
+                    <small style={{ color: 'var(--text-light)', fontSize: '0.85rem' }}>
+                        Opcional. Te permitirá recuperar tu contraseña si la olvidas.
+                    </small>
+                </div>
+
+                <div className={styles.inputGroup}>
+                    <label className={styles.label}>Respuesta</label>
+                    <input
+                        name="securityAnswer"
+                        type="text"
+                        className={styles.input}
+                        placeholder="Tu respuesta secreta"
+                    />
+                </div>
+
                 {state?.message && (
                     <p style={{
                         color: state.message.includes('éxito') ? '#2e7d32' : '#d32f2f',

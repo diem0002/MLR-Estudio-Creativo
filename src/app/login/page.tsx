@@ -3,7 +3,7 @@
 import { useActionState } from 'react';
 import { authenticate } from '@/lib/actions';
 import styles from './login.module.css';
-
+import Link from 'next/link';
 import Script from 'next/script';
 
 export default function LoginPage() {
@@ -62,6 +62,17 @@ export default function LoginPage() {
                 <button className={styles.button} aria-disabled={false}>
                     Ingresar
                 </button>
+
+                <Link href="/recover-password" style={{
+                    display: 'block',
+                    textAlign: 'center',
+                    marginTop: '1rem',
+                    color: 'var(--rose-primary)',
+                    textDecoration: 'none',
+                    fontSize: '0.9rem'
+                }}>
+                    ¿Olvidaste tu contraseña?
+                </Link>
             </form>
         </main>
     );

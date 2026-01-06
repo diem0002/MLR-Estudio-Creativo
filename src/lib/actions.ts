@@ -185,6 +185,8 @@ export async function updateCredentials(prevState: any, formData: FormData) {
     const newEmail = formData.get('newEmail') as string;
     const newPassword = formData.get('newPassword') as string;
     const confirmPassword = formData.get('confirmPassword') as string;
+    const securityQuestion = formData.get('securityQuestion') as string;
+    const securityAnswer = formData.get('securityAnswer') as string;
 
     if (!currentPassword || !newEmail || !newPassword || !confirmPassword) {
         return { message: 'Todos los campos son obligatorios' };
@@ -218,9 +220,18 @@ export async function updateCredentials(prevState: any, formData: FormData) {
 
         const hashedPassword = await bcrypt.hash(newPassword, 10);
 
+        // Hash security answer if provided
+        let hashedAnswer = null;
+        if (securityQuestion && securityAnswer) {
+            hashedAnswer = await bcrypt.hash(securityAnswer.toLowerCase().trim(), 10);
+        }
+
         await sql`
             UPDATE users 
-            SET email = ${newEmail}, password = ${hashedPassword}
+            SET email = ${newEmail}, 
+                password = ${hashedPassword},
+                security_question = ${securityQuestion || null},
+                security_answer = ${hashedAnswer}
             WHERE id = ${user.id}
         `;
 
@@ -228,5 +239,50 @@ export async function updateCredentials(prevState: any, formData: FormData) {
     } catch (error: any) {
         console.error('Error updating credentials:', error);
         return { message: 'Error al actualizar credenciales: ' + error.message };
+    }
+}
+
+export async function recoverPassword(prevState: any, formData: FormData) {
+    const securityAnswer = formData.get('securityAnswer') as string;
+    const newPassword = formData.get('newPassword') as string;
+    const confirmPassword = formData.get('confirmPassword') as string;
+
+    if (!securityAnswer || !newPassword || !confirmPassword) {
+        return { message: 'Todos los campos son obligatorios' };
+    }
+
+    if (newPassword !== confirmPassword) {
+        return { message: 'Las contraseñas no coinciden' };
+    }
+
+    if (newPassword.length < 6) {
+        return { message: 'La contraseña debe tener al menos 6 caracteres' };
+    }
+
+    try {
+        const result = await sql`SELECT * FROM users WHERE id = 1 LIMIT 1`;
+        const user = result.rows[0];
+
+        if (!user || !user.security_question || !user.security_answer) {
+            return { message: 'No hay pregunta de seguridad configurada' };
+        }
+
+        const isValid = await bcrypt.compare(securityAnswer.toLowerCase().trim(), user.security_answer);
+        if (!isValid) {
+            return { message: 'Respuesta incorrecta' };
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        await sql`
+            UPDATE users 
+            SET password = ${hashedPassword}
+            WHERE id = ${user.id}
+        `;
+
+        return { message: '✓ Contraseña recuperada con éxito. Ya puedes iniciar sesión.' };
+    } catch (error: any) {
+        console.error('Error recovering password:', error);
+        return { message: 'Error al recuperar contraseña: ' + error.message };
     }
 }
